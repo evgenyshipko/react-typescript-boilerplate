@@ -1,6 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
 const path = require('path');
 
@@ -16,10 +19,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-        alias: {
-            '@src': path.resolve(__dirname, '../src/'),
-            '@components': path.resolve(__dirname, '../src/components'),
-        },
+        plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
     },
     module: {
         rules: [
@@ -43,6 +43,9 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(dotenv.config().parsed),
+        }),
         new MiniCssExtractPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({

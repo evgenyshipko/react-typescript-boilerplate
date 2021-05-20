@@ -7,4 +7,5 @@
 3. css-loader - interprets @import and url() like import/require() and will resolve them.
 4. html-webpack-plugin - generate html using template
 5. clean-webpack-plugin - clean dist folder after each build
-6. resolve : {alias ...} - allows absolute paths in imports
+6. TsconfigPathsPlugin - allows absolute paths in imports, got it from tsconfig.json
+7. DefinePlugin - allows use .env files automatically
